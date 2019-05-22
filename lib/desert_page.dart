@@ -43,13 +43,21 @@ class DesertPage extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Hero(
-                        tag: ds[index].gambar.trim(),
+                        tag: ds[index].nama.trim(),
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
                             onTap:(){
-                              final snackBar = SnackBar(content: Text(ds[index].nama.trim()));
-                              Scaffold.of(context).showSnackBar(snackBar);
+                              Navigator.push(context,
+                                  MaterialPageRoute(
+                                      builder: (context)  =>
+                                          DetilMakanan(
+                                            gambar: ds[index].gambar.trim(),
+                                            makanan: ds[index].nama.trim(),
+                                            deskripsi: ds[index].deskripsi.trim(),
+                                          )
+                                  )
+                              );
                             },
                             child: Image.asset(
                               ds[index].gambar.trim(),
@@ -60,10 +68,9 @@ class DesertPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      //Image.asset(mc[index].gambar.trim(), width: 160.0, height: 120.0, fit: BoxFit.cover,),
 
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: new Text(ds[index].nama.trim()),
                       ),
                     ],
@@ -72,16 +79,8 @@ class DesertPage extends StatelessWidget {
               ),
 
               onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(
-                        builder: (context)  =>
-                            DetilMakanan(
-                              gambar: ds[index].gambar.trim(),
-                              makanan: ds[index].nama.trim(),
-                              deskripsi: ds[index].deskripsi.trim(),
-                            )
-                    )
-                );
+                final snackBar = SnackBar(content: Text(ds[index].nama.trim()));
+                Scaffold.of(context).showSnackBar(snackBar);
               },
             );
           }),
